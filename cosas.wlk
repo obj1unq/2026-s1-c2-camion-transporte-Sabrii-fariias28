@@ -1,6 +1,10 @@
 object knightRider {
-	method peso() { return 500 }
-	method nivelPeligrosidad() { return 10 }
+	method peso() { 
+		return 500 
+    }
+	method nivelPeligrosidad() {
+		 return 10  
+	}
 }
 
 object arenaGranel {
@@ -25,11 +29,8 @@ object bumblebee {
   }
 
   method nivelPeligrosidad() {
-	if(tranformacion == "auto"){
-		return 15
-	} else{
-		return 30
-	}
+	return if(tranformacion == "auto") 15 else 30
+
   }
 
   method transformacion(_tranformacion) {
@@ -54,11 +55,7 @@ object paqueteLadrillos {
 object bateria {
   var tieneMisil = self.conMisiles()
   method peso() {
-	if(self.conMisiles()){
-		return 300
-	} else{
-		return 200
-	}
+	return if(self.tieneMisil()) 300 else 200
   }
 
   method conMisiles() {
@@ -70,11 +67,7 @@ object bateria {
   }
 
   method nivelPeligrosidad() {
-	if(tieneMisil){
-		return 100
-	} else {
-		return 0
-	}
+	return if(tieneMisil) 100 else 0
   }
 
   method cambiarEstado(misil) {
