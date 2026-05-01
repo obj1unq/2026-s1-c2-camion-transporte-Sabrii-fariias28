@@ -1,0 +1,89 @@
+import camion.*
+import cosas.*
+
+describe "Nivel de peligrosidad de la cargas" {
+  test "Encontrar una carga de nivel de peligrosidad 0" {
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+
+    bumblebee.transformacion("auto")
+    bateria.cambiarEstado(bateria.sinMisiles())
+
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(bateria, camion.cargaConPeligrosidad(0))
+  }
+
+    test "Encontrar una carga de nivel de peligrosidad 15" {
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+
+    bumblebee.transformacion("auto")
+    bateria.cambiarEstado(bateria.sinMisiles())
+
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(bumblebee, camion.cargaConPeligrosidad(15))
+  }
+
+    test "Encontrar una carga de nivel de peligrosidad 200" {
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+
+    bumblebee.transformacion("auto")
+    bateria.cambiarEstado(bateria.sinMisiles())
+
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(residuos, camion.cargaConPeligrosidad(200))
+  }
+
+    test "Encontrar una carga de nivel de peligrosidad 30" {
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+
+    bumblebee.transformacion("auto")
+    bateria.cambiarEstado(bateria.sinMisiles())
+
+    assert.equals(false, bateria.tieneMisil())
+    assert.throwsException({camion.cargaConPeligrosidad(30)})
+  }
+
+  test "Si se cambia a bumblebee a modo robot debria encontrarlo con el nivel de peligrosidad 30" {
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+
+    bumblebee.transformacion("robot")
+    bateria.cambiarEstado(bateria.sinMisiles())
+
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(bumblebee, camion.cargaConPeligrosidad(30))
+  }
+
+  test "Encontrar a la bateria, ya que tiene nivel de peligrosidad 100 con misiles" {
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+
+    bumblebee.transformacion("robot")
+    bateria.cambiarEstado(bateria.conMisiles())
+
+    assert.equals(true, bateria.tieneMisil())
+    assert.equals(bateria, camion.cargaConPeligrosidad(100))
+  }
+}
+
