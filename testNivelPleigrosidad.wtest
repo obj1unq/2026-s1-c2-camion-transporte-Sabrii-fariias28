@@ -87,3 +87,52 @@ describe "Nivel de peligrosidad de la cargas" {
   }
 }
 
+describe "Cosas peligrosas para un camion cargado con Knight Rider y la batería antiaérea" {
+  test "Cosas cargadas que superan un nivel 15 de peligrosidad" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{bateria}, camion.cosasQueSuperanPeligrosidad(15))
+  }
+
+  test "Cosas cargadas mas peligrosas que Bumblebee" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{bateria}, camion.cosasMasPeligrosasQue(bumblebee))
+  }
+
+  test "Las cosas que superan 2 de nivel de peligrosidad" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{knightRider,bateria}, camion.cosasQueSuperanPeligrosidad(2))
+  }
+
+  test "Las cosas más peligrosas que el paquete de ladrillos" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{knightRider,bateria}, camion.cosasMasPeligrosasQue(paqueteLadrillos))
+  }
+
+  test "No hay cosas mas peligrosas que 200" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{}, camion.cosasQueSuperanPeligrosidad(200))
+  }
+
+  test "No hay nada más peligroso que los residuos radiactivos" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())  
+    assert.equals(#{}, camion.cosasMasPeligrosasQue(residuos))
+  }
+}

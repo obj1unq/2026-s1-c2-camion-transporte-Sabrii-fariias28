@@ -63,6 +63,9 @@ object camion {
 	method cosasQueSuperanPeligrosidad(nivel) {
 	  return cosas.filter({cosa => cosa.nivelPeligrosidad() > nivel}) 
 	}
-
+	
+	method cosasMasPeligrosasQue(cosa) {
+	  return self.cosasQueSuperanPeligrosidad(cosa.nivelPeligrosidad())
+	}
 }
 
