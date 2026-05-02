@@ -9,6 +9,8 @@ object knightRider {
 	method bulto() {
 	  return 1
 	}
+
+	method efecto() {}
 }
 
 object arenaGranel {
@@ -27,6 +29,10 @@ object arenaGranel {
 
 	method bulto() {
 	  return 1
+	}
+
+	method efecto() {
+	  pesoArena = pesoArena + 20
 	}
 }
 
@@ -47,6 +53,10 @@ object bumblebee {
 	
   method bulto() {
 	return 2
+  }
+
+  method efecto() {
+	modo = if( modo == "auto") "robot" else "auto"
   }
 }
 
@@ -72,6 +82,10 @@ object paqueteLadrillos {
     	3
     }
   }
+
+  method efecto() {
+	if(ladrillos < 12) 0 else ladrillos - 12
+  }
 }
 
 object bateria {
@@ -96,6 +110,10 @@ object bateria {
 	return if(self.tieneMisil()) 2 else 1
   }
 
+  method efecto() {
+	self.cambiarEstado(false)
+  }
+
 }
 
 object residuos {
@@ -114,6 +132,10 @@ object residuos {
 
   method bulto() {
 	  return 1
+  }
+
+  method efecto() {
+	pesoResiduos = pesoResiduos + 15
   }
 }
 
@@ -147,6 +169,9 @@ object contenedorPortuario {
 	return 1 + cosas.sum({cosa => cosa.bulto()})
   }
 
+  method efecto() {
+	cosas.forEach({cosa => cosa.efecto()})
+  }
 }
 
 object embalaje {
@@ -167,4 +192,6 @@ object embalaje {
   method bulto() {
 	return 2
   }
+
+  method efecto() {}
 }

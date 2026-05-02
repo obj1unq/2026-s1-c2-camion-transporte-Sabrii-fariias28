@@ -87,5 +87,9 @@ object camion {
 	method totalDeBultos() {
 	  return cosas.sum({cosa => cosa.bulto()})
 	}
+
+	method accidente() {
+	  cosas.forEach({cosa => cosa.efecto()})
+	}
 }
 
