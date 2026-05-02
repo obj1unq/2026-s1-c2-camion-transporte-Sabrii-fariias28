@@ -17,5 +17,27 @@ describe "Bultos del camion" {
     assert.equals(#{contenedorPortuario,bumblebee,embalaje,arenaGranel}, camion.cosasCargadas())
     assert.equals(9, camion.totalDeBultos())
   }
+
+  test "Caso 2: cantidad de bultos es 5" {
+    paqueteLadrillos.cantidadLadrillos(150)
+    bateria.cambiarEstado(true)
+
+    camion.cargar(paqueteLadrillos)
+    camion.cargar(bateria)
+    camion.cargar(contenedorPortuario)
+
+    assert.equals(#{paqueteLadrillos,bateria,contenedorPortuario}, camion.cosasCargadas())
+    assert.equals(5, camion.totalDeBultos())
+  }
+
+  test "Caso 3: Cantidad de bultos es 4" {
+    paqueteLadrillos.cantidadLadrillos(350)
+
+    camion.cargar(paqueteLadrillos)
+    camion.cargar(arenaGranel)
+
+    assert.equals(#{paqueteLadrillos,arenaGranel}, camion.cosasCargadas())
+    assert.equals(4, camion.totalDeBultos())
+  }
 }
 
