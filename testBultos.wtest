@@ -1,0 +1,21 @@
+import camion.*
+import cosas.*
+
+describe "Bultos del camion" {
+  test "Caso 1: cantidad de bultos es 9" {
+    contenedorPortuario.cargar(knightRider)
+    contenedorPortuario.cargar(bumblebee)
+    embalaje.envolver(residuos)
+    bateria.cambiarEstado(false)
+
+    camion.cargar(contenedorPortuario)
+    camion.cargar(bumblebee)
+    camion.cargar(embalaje)
+    camion.cargar(arenaGranel)
+
+    assert.equals([knightRider,bumblebee], contenedorPortuario.cosasQueTiene())
+    assert.equals(#{contenedorPortuario,bumblebee,embalaje,arenaGranel}, camion.cosasCargadas())
+    assert.equals(9, camion.totalDeBultos())
+  }
+}
+

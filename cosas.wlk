@@ -5,6 +5,10 @@ object knightRider {
 	method nivelPeligrosidad() {
 		 return 10  
 	}
+
+	method bulto() {
+	  return 1
+	}
 }
 
 object arenaGranel {
@@ -18,6 +22,10 @@ object arenaGranel {
 	}
 
 	method nivelPeligrosidad() {
+	  return 1
+	}
+
+	method bulto() {
 	  return 1
 	}
 }
@@ -36,6 +44,10 @@ object bumblebee {
   method modo(_modo) {
 	modo = _modo
   }
+	
+  method bulto() {
+	return 2
+  }
 }
 
 object paqueteLadrillos {
@@ -50,6 +62,16 @@ object paqueteLadrillos {
   method nivelPeligrosidad() {
 	  return 2
   }
+
+  method bulto() {
+	return if (ladrillos <= 100) {
+   		 1
+    } else if (ladrillos <= 300) {
+   		 2
+    } else {
+    	3
+    }
+  }
 }
 
 object bateria {
@@ -58,16 +80,8 @@ object bateria {
 	return if(self.tieneMisil()) 300 else 200
   }
 
-  method conMisiles() {
-	return true
-  }
-
-  method sinMisiles() {
-	return false
-  }
-
   method nivelPeligrosidad() {
-	return if(tieneMisil) 100 else 0
+	return if(self.tieneMisil()) 100 else 0
   }
 
   method cambiarEstado(misil) {
@@ -76,6 +90,10 @@ object bateria {
 
   method tieneMisil() {
 	return tieneMisil
+  }
+
+  method bulto() {
+	return if(self.tieneMisil()) 2 else 1
   }
 
 }
@@ -92,6 +110,10 @@ object residuos {
 
   method nivelPeligrosidad() {
 	return 200
+  }
+
+  method bulto() {
+	  return 1
   }
 }
 
@@ -121,6 +143,10 @@ object contenedorPortuario {
 	return cosas.max({cosa => cosa.peso()})
   }
 
+  method bulto() {
+	return 1 + cosas.sum({cosa => cosa.bulto()})
+  }
+
 }
 
 object embalaje {
@@ -136,5 +162,9 @@ object embalaje {
 
   method envolver(cosa) {
 	cosaQueEmbuelve = cosa
+  }
+
+  method bulto() {
+	return 2
   }
 }

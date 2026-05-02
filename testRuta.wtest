@@ -3,28 +3,29 @@ import cosas.*
 
 describe "El camion en la ruta" {
   test "Puede circular  en la ruta con nivel 20" {
+    paqueteLadrillos.cantidadLadrillos(300)
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(300)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.that(camion.puedeCircularEnRuta(20))
   }
 
   test "No puede circular en la ruta con nivel 20, excedido de peso" {
+    paqueteLadrillos.cantidadLadrillos(400)
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(400)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.notThat(camion.puedeCircularEnRuta(20))
   }
 
   test "No puede circular en la ruta por bumblebee modo robot" {
-    camion.cargar(bumblebee)
-    camion.cargar(paqueteLadrillos)
     paqueteLadrillos.cantidadLadrillos(300)
     bumblebee.modo("robot")
+
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.notThat(camion.puedeCircularEnRuta(20))
@@ -38,9 +39,10 @@ describe "Mas cosas: Contenedor y embalaje de seguridad" {
   }
 
   test "El contenedor tiene a un Knight Rider y 50 kg de arena a granel" {
+    arenaGranel.cambiarPeso(50)
+    
     contenedorPortuario.cargar(knightRider)
     contenedorPortuario.cargar(arenaGranel)
-    arenaGranel.cambiarPeso(50)
 
     assert.equals([knightRider,arenaGranel], contenedorPortuario.cosasQueTiene())
     assert.equals(650, contenedorPortuario.peso())

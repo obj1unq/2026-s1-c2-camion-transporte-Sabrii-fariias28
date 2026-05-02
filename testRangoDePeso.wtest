@@ -3,9 +3,10 @@ import cosas.*
 
 describe "El camion tiene algo que pesa entre dos valores" {
   test "Tiene algo que pesa entre 5 y 700" {
+    paqueteLadrillos.cantidadLadrillos(300)
+
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(300)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.that(camion.algunaCosaPesaEntre(5,700))
@@ -13,18 +14,20 @@ describe "El camion tiene algo que pesa entre dos valores" {
   }
 
   test "Tiene algo que pesa entre 5 y 1000." {
+    paqueteLadrillos.cantidadLadrillos(300)
+
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(300)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.that(camion.algunaCosaPesaEntre(5,1000))
   }
 
   test "No tiene algo que pese entre 900 y 1000." {
+    paqueteLadrillos.cantidadLadrillos(300)
+
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(300)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.notThat(camion.algunaCosaPesaEntre(900,1000))
@@ -33,9 +36,10 @@ describe "El camion tiene algo que pesa entre dos valores" {
 
 describe "Cosa más pesada del camión" {
   test "La cosa más pesada entre las cargadas es Bumblebee" {
+    paqueteLadrillos.cantidadLadrillos(300)
+
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(300)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.equals(bumblebee, camion.cosaMasPesada())
@@ -48,9 +52,10 @@ describe "Cosa más pesada del camión" {
 
 describe "Pesos de todas las cosas cargadas en el camión" {
   test "Camión cargado con Bumblebee y un paquete de 300 ladrillos" {
+    paqueteLadrillos.cantidadLadrillos(300)
+    
     camion.cargar(bumblebee)
     camion.cargar(paqueteLadrillos)
-    paqueteLadrillos.cantidadLadrillos(300)
 
     assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
     assert.equals([800,600], camion.pesosDeLasCosas())
