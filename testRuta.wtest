@@ -1,0 +1,69 @@
+import camion.*
+import cosas.*
+
+describe "El camion en la ruta" {
+  test "Puede circular  en la ruta con nivel 20" {
+    paqueteLadrillos.cantidadLadrillos(300)
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.that(camion.puedeCircularEnRuta(20))
+  }
+
+  test "No puede circular en la ruta con nivel 20, excedido de peso" {
+    paqueteLadrillos.cantidadLadrillos(400)
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
+
+  test "No puede circular en la ruta por bumblebee modo robot" {
+    paqueteLadrillos.cantidadLadrillos(300)
+    bumblebee.modo("robot")
+
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
+}
+
+describe "Mas cosas: Contenedor y embalaje de seguridad" {
+  test "El contenedor pesa 100 y su peligrosidad es 0" {
+    assert.equals(100, contenedorPortuario.peso())
+    assert.equals(0, contenedorPortuario.nivelPeligrosidad())
+  }
+
+  test "El contenedor tiene a un Knight Rider y 50 kg de arena a granel" {
+    arenaGranel.cambiarPeso(50)
+    
+    contenedorPortuario.cargar(knightRider)
+    contenedorPortuario.cargar(arenaGranel)
+
+    assert.equals([knightRider,arenaGranel], contenedorPortuario.cosasQueTiene())
+    assert.equals(650, contenedorPortuario.peso())
+    assert.equals(10, contenedorPortuario.nivelPeligrosidad())
+  }
+
+  test "Embalaje envuelea Knight Rider" {
+    embalaje.envolver(knightRider)
+
+    assert.equals(500, embalaje.peso())
+    assert.equals(5, embalaje.nivelPeligrosidad())
+  }
+
+  test "Embalaje envuelve a  Bumblebee en modo automático" {
+    embalaje.envolver(bumblebee)
+    bumblebee.modo("auto")
+
+    assert.equals(800, embalaje.peso())
+    assert.equals(7.5, embalaje.nivelPeligrosidad())
+  }
+}
+
+
+

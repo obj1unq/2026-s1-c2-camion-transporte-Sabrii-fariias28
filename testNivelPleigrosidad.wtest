@@ -1,0 +1,132 @@
+import camion.*
+import cosas.*
+
+describe "Nivel de peligrosidad de la cargas" {
+  test "Encontrar una carga de nivel de peligrosidad 0" {
+    bumblebee.modo("auto")
+    bateria.cambiarEstado(false)
+
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(bateria, camion.cargaConPeligrosidad(0))
+  }
+
+    test "Encontrar una carga de nivel de peligrosidad 15" {
+    bumblebee.modo("auto")
+    bateria.cambiarEstado(false)
+
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(bumblebee, camion.cargaConPeligrosidad(15))
+  }
+
+    test "Encontrar una carga de nivel de peligrosidad 200" {
+    bumblebee.modo("auto")
+    bateria.cambiarEstado(false)
+
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(residuos, camion.cargaConPeligrosidad(200))
+  }
+
+    test "Encontrar una carga de nivel de peligrosidad 30" {
+    bumblebee.modo("auto")
+    bateria.cambiarEstado(false)
+
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+    assert.equals(false, bateria.tieneMisil())
+    assert.throwsException({camion.cargaConPeligrosidad(30)})
+  }
+
+  test "Si se cambia a bumblebee a modo robot debria encontrarlo con el nivel de peligrosidad 30" {
+    bumblebee.modo("robot")
+    bateria.cambiarEstado(false)
+
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+    assert.equals(false, bateria.tieneMisil())
+    assert.equals(bumblebee, camion.cargaConPeligrosidad(30))
+  }
+
+  test "Encontrar a la bateria, ya que tiene nivel de peligrosidad 100 con misiles" {
+    bumblebee.modo("robot")
+    bateria.cambiarEstado(true)
+
+    camion.cargar(bumblebee)
+    camion.cargar(bateria)
+    camion.cargar(residuos)
+
+    assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
+    assert.equals(true, bateria.tieneMisil())
+    assert.equals(bateria, camion.cargaConPeligrosidad(100))
+  }
+}
+
+describe "Cosas peligrosas para un camion cargado con Knight Rider y la batería antiaérea" {
+  test "Cosas cargadas que superan un nivel 15 de peligrosidad" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{bateria}, camion.cosasQueSuperanPeligrosidad(15))
+  }
+
+  test "Cosas cargadas mas peligrosas que Bumblebee" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{bateria}, camion.cosasMasPeligrosasQue(bumblebee))
+  }
+
+  test "Las cosas que superan 2 de nivel de peligrosidad" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{knightRider,bateria}, camion.cosasQueSuperanPeligrosidad(2))
+  }
+
+  test "Las cosas más peligrosas que el paquete de ladrillos" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{knightRider,bateria}, camion.cosasMasPeligrosasQue(paqueteLadrillos))
+  }
+
+  test "No hay cosas mas peligrosas que 200" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())
+    assert.equals(#{}, camion.cosasQueSuperanPeligrosidad(200))
+  }
+
+  test "No hay nada más peligroso que los residuos radiactivos" {
+    camion.cargar(knightRider)
+    camion.cargar(bateria)
+
+    assert.equals(#{knightRider,bateria}, camion.cosasCargadas())  
+    assert.equals(#{}, camion.cosasMasPeligrosasQue(residuos))
+  }
+}

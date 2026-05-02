@@ -1,0 +1,49 @@
+import cosas.*
+import camion.*
+
+describe "Camion" {
+  test "Cargar a Bumblebee" {
+    assert.that(camion.estaDescargado())
+    
+    camion.cargar(bumblebee)
+    assert.equals(#{bumblebee}, camion.cosasCargadas())
+  }
+
+  test "Cargar a Bumblebee y Knight Rider" {
+    assert.that(camion.estaDescargado())
+    
+    camion.cargar(bumblebee)
+    assert.equals(#{bumblebee}, camion.cosasCargadas())
+
+    camion.cargar(knightRider)
+    assert.equals(#{bumblebee,knightRider}, camion.cosasCargadas())
+  }
+
+  test "Descargar a Bumblebee" {
+    assert.that(camion.estaDescargado())
+    
+    camion.cargar(bumblebee)
+    assert.equals(#{bumblebee}, camion.cosasCargadas())
+
+    camion.cargar(knightRider)
+    assert.equals(#{bumblebee,knightRider}, camion.cosasCargadas())
+
+    camion.descargar(bumblebee)
+    assert.equals(#{knightRider}, camion.cosasCargadas())
+  }
+
+  test "Intentar cargar a Knight Rider dos veces" {
+    assert.that(camion.estaDescargado())
+
+    camion.cargar(knightRider)
+    assert.equals(#{knightRider}, camion.cosasCargadas())
+
+    assert.throwsException({camion.cargar(knightRider)})
+  }
+
+  test "Intentar descargar a Bumblebee que no esta cargado" {
+    assert.that(camion.estaDescargado())
+    assert.throwsException({camion.descargar(knightRider)})
+
+  }
+}

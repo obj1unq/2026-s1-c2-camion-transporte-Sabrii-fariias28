@@ -1,0 +1,70 @@
+import camion.*
+import cosas.*
+
+describe "Verificar que la carga del camión es par" {
+  test "La carga tiene un peso de 50 que es par : Verdadero" {
+    arenaGranel.cambiarPeso(50)
+    
+    camion.cargar(bumblebee)
+    camion.cargar(arenaGranel)
+
+    assert.equals(#{bumblebee,arenaGranel}, camion.cosasCargadas())
+
+    assert.equals(50, arenaGranel.peso())
+    assert.equals(800, bumblebee.peso())
+    assert.that(camion.laCargaEsPar())
+  }
+
+  test "La carga tiene un peso 51 que es impar " {
+    arenaGranel.cambiarPeso(51)
+
+    camion.cargar(bumblebee)
+    camion.cargar(arenaGranel)
+
+    assert.equals(#{bumblebee,arenaGranel}, camion.cosasCargadas())
+
+    assert.equals(51, arenaGranel.peso())
+    assert.equals(800, bumblebee.peso())
+    assert.notThat(camion.laCargaEsPar())
+  }
+}
+
+describe "Saber si alguna carga pesa exactamente un peso" {
+  test "Alguna carga pesa 50 " {
+    arenaGranel.cambiarPeso(50)
+
+    camion.cargar(bumblebee)
+    camion.cargar(arenaGranel) 
+
+    assert.equals(#{bumblebee,arenaGranel}, camion.cosasCargadas())
+
+    assert.equals(50, arenaGranel.peso())
+    assert.that(camion.algunoPesa(50))
+    assert.that(camion.algunoPesa(800))
+    assert.notThat(camion.algunoPesa(500))
+  }
+}
+
+describe "Saber si el peso total esta excedido" {
+  test "Peso total no excedido " {
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos) 
+
+    assert.equals(2400, camion.pesoTotal())
+    assert.notThat(camion.estaExcedido())
+  }
+
+  test "Peso total excedido" {
+    paqueteLadrillos.cantidadLadrillos(400)
+
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos) 
+
+    assert.equals(2600, camion.pesoTotal())
+    assert.that(camion.estaExcedido())
+  }
+}
+
+
