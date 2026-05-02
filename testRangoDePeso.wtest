@@ -1,0 +1,58 @@
+import camion.*
+import cosas.*
+
+describe "El camion tiene algo que pesa entre dos valores" {
+  test "Tiene algo que pesa entre 5 y 700" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.that(camion.algunaCosaPesaEntre(5,700))
+    
+  }
+
+  test "Tiene algo que pesa entre 5 y 1000." {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.that(camion.algunaCosaPesaEntre(5,1000))
+  }
+
+  test "No tiene algo que pese entre 900 y 1000." {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.notThat(camion.algunaCosaPesaEntre(900,1000))
+  }
+}
+
+describe "Cosa más pesada del camión" {
+  test "La cosa más pesada entre las cargadas es Bumblebee" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.equals(bumblebee, camion.cosaMasPesada())
+  }
+
+  test "Si el camión esta vacío no se puede calcular la cosa más pesada" {
+    assert.throwsException({camion.cosaMasPesada()})
+  }
+}
+
+describe "Pesos de todas las cosas cargadas en el camión" {
+  test "Camión cargado con Bumblebee y un paquete de 300 ladrillos" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.equals([800,600], camion.pesosDeLasCosas())
+  }
+}
