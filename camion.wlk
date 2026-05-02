@@ -14,7 +14,7 @@ object camion {
 	}
 
 	method estaDescargado() {
-	  return cosas == #{}
+	  return cosas.isEmpty()
 	}
 
 	method cosasCargadas() {

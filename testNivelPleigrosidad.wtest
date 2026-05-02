@@ -9,7 +9,7 @@ describe "Nivel de peligrosidad de la cargas" {
 
     assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
 
-    bumblebee.transformacion("auto")
+    bumblebee.modo("auto")
     bateria.cambiarEstado(bateria.sinMisiles())
 
     assert.equals(false, bateria.tieneMisil())
@@ -23,7 +23,7 @@ describe "Nivel de peligrosidad de la cargas" {
 
     assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
 
-    bumblebee.transformacion("auto")
+    bumblebee.modo("auto")
     bateria.cambiarEstado(bateria.sinMisiles())
 
     assert.equals(false, bateria.tieneMisil())
@@ -37,7 +37,7 @@ describe "Nivel de peligrosidad de la cargas" {
 
     assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
 
-    bumblebee.transformacion("auto")
+    bumblebee.modo("auto")
     bateria.cambiarEstado(bateria.sinMisiles())
 
     assert.equals(false, bateria.tieneMisil())
@@ -51,7 +51,7 @@ describe "Nivel de peligrosidad de la cargas" {
 
     assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
 
-    bumblebee.transformacion("auto")
+    bumblebee.modo("auto")
     bateria.cambiarEstado(bateria.sinMisiles())
 
     assert.equals(false, bateria.tieneMisil())
@@ -65,7 +65,7 @@ describe "Nivel de peligrosidad de la cargas" {
 
     assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
 
-    bumblebee.transformacion("robot")
+    bumblebee.modo("robot")
     bateria.cambiarEstado(bateria.sinMisiles())
 
     assert.equals(false, bateria.tieneMisil())
@@ -79,7 +79,7 @@ describe "Nivel de peligrosidad de la cargas" {
 
     assert.equals(#{bumblebee,bateria,residuos}, camion.cosasCargadas())
 
-    bumblebee.transformacion("robot")
+    bumblebee.modo("robot")
     bateria.cambiarEstado(bateria.conMisiles())
 
     assert.equals(true, bateria.tieneMisil())

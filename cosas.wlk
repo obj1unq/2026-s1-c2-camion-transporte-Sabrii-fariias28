@@ -23,18 +23,18 @@ object arenaGranel {
 }
 
 object bumblebee {
-	var tranformacion = "auto"
+	var modo = "auto"
   method peso() {
 	return 800
   }
 
   method nivelPeligrosidad() {
-	return if(tranformacion == "auto") 15 else 30
+	return if(modo == "auto") 15 else 30
 
   }
 
-  method transformacion(_tranformacion) {
-	tranformacion = _tranformacion
+  method modo(_modo) {
+	modo = _modo
   }
 }
 
@@ -96,12 +96,45 @@ object residuos {
 }
 
 object contenedorPortuario {
-  const cosas = #{}
+  const cosas = []
   method peso() {
 	return 100 + cosas.sum({cosa => cosa.peso()})
   }
 
   method nivelPeligrosidad() {
-	return if(cosas.isEmpty()) 0 else cosas.max({cosa => cosa.peso()})
+	return if(cosas.isEmpty()) 0 else self.cosaMasPesada().nivelPeligrosidad()
+  }
+
+  method cargar(unaCosa) {
+	cosas.add(unaCosa)
+  }
+
+  method descargar(unaCosa) {
+	cosas.remove(unaCosa)
+  }
+
+  method cosasQueTiene() {
+	return cosas
+  }
+
+  method cosaMasPesada() {
+	return cosas.max({cosa => cosa.peso()})
+  }
+
+}
+
+object embalaje {
+  var cosaQueEmbuelve = knightRider
+
+  method peso() {
+	return cosaQueEmbuelve.peso()
+  }
+  
+  method nivelPeligrosidad() {
+	return (cosaQueEmbuelve.nivelPeligrosidad())/2
+  }
+
+  method envolver(cosa) {
+	cosaQueEmbuelve = cosa
   }
 }
