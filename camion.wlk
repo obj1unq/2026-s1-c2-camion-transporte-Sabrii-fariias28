@@ -1,7 +1,7 @@
 import cosas.*
 
 object camion {
-	const property cosas = #{}
+	const cosas = #{}
 		
 	method cargar(unaCosa) {
 		self.validarCarga(unaCosa)
@@ -25,8 +25,8 @@ object camion {
 	  return cosas.contains(unaCosa)
 	}
 	method validarCarga(unaCosa) {
- 		 if (self.yaEstaCargado(unaCosa)) {
-    		self.error("No se puede cargar porque ya está en el camión")
+ 		if (self.yaEstaCargado(unaCosa)) {
+    	  self.error("No se puede cargar porque ya está en el camión")
        }
     }
 
@@ -66,6 +66,10 @@ object camion {
 	
 	method cosasMasPeligrosasQue(cosa) {
 	  return self.cosasQueSuperanPeligrosidad(cosa.nivelPeligrosidad())
+	}
+
+	method puedeCircularEnRuta(nivelRuta) {
+	  return  !self.estaExcedido() && self.cosasQueSuperanPeligrosidad(nivelRuta).isEmpty()
 	}
 }
 

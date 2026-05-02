@@ -1,0 +1,35 @@
+import camion.*
+import cosas.*
+
+describe "El camion en la ruta" {
+  test "Puede circular  en la ruta con nivel 20" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.that(camion.puedeCircularEnRuta(20))
+  }
+
+  test "No puede circular en la ruta con nivel 20, excedido de peso" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(400)
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
+
+  test "No puede circular en la ruta por bumblebee modo robot" {
+    camion.cargar(bumblebee)
+    camion.cargar(paqueteLadrillos)
+    paqueteLadrillos.cantidadLadrillos(300)
+    bumblebee.transformacion("robot")
+
+    assert.equals(#{bumblebee,paqueteLadrillos}, camion.cosasCargadas())
+    assert.notThat(camion.puedeCircularEnRuta(20))
+  }
+}
+
+
+

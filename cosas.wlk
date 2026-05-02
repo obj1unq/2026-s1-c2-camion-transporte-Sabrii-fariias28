@@ -53,7 +53,7 @@ object paqueteLadrillos {
 }
 
 object bateria {
-  var tieneMisil = self.conMisiles()
+  var tieneMisil = true
   method peso() {
 	return if(self.tieneMisil()) 300 else 200
   }
@@ -81,8 +81,9 @@ object bateria {
 }
 
 object residuos {
-	var pesoResiduos = 0
-  method peso(peso) {
+  var pesoResiduos = 0
+
+  method cambiarPeso(peso) {
 	pesoResiduos = peso
   }
   method peso() {
@@ -91,5 +92,16 @@ object residuos {
 
   method nivelPeligrosidad() {
 	return 200
+  }
+}
+
+object contenedorPortuario {
+  const cosas = #{}
+  method peso() {
+	return 100 + cosas.sum({cosa => cosa.peso()})
+  }
+
+  method nivelPeligrosidad() {
+	return if(cosas.isEmpty()) 0 else cosas.max({cosa => cosa.peso()})
   }
 }
