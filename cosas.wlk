@@ -15,6 +15,7 @@ object knightRider {
 
 object arenaGranel {
 	var pesoArena = 0
+
 	method peso() {
 	  return pesoArena
 	}
@@ -37,7 +38,7 @@ object arenaGranel {
 }
 
 object bumblebee {
-	var modo = "auto"
+  var modo = "auto"
   method peso() {
 	return 800
   }
@@ -55,18 +56,23 @@ object bumblebee {
 	return 2
   }
 
+  method modo() {
+	return modo
+  }
+
   method efecto() {
 	modo = if( modo == "auto") "robot" else "auto"
   }
 }
 
 object paqueteLadrillos {
-  var ladrillos = 0
+  var cantidadLadrillos = 0
+
   method cantidadLadrillos(cantidad) {
-	ladrillos = cantidad
+	cantidadLadrillos = cantidad
   }
   method peso() {
- 	return 2 * ladrillos
+ 	return 2 * cantidadLadrillos
   }
   
   method nivelPeligrosidad() {
@@ -74,9 +80,9 @@ object paqueteLadrillos {
   }
 
   method bulto() {
-	return if (ladrillos <= 100) {
+	return if (cantidadLadrillos <= 100) {
    		 1
-    } else if (ladrillos <= 300) {
+    } else if (cantidadLadrillos <= 300) {
    		 2
     } else {
     	3
@@ -84,12 +90,17 @@ object paqueteLadrillos {
   }
 
   method efecto() {
-	if(ladrillos < 12) 0 else ladrillos - 12
+	if(cantidadLadrillos < 12) cantidadLadrillos = 0 else cantidadLadrillos = cantidadLadrillos - 12
+  }
+
+  method cantidadLadrillos() {
+	return cantidadLadrillos 
   }
 }
 
 object bateria {
   var tieneMisil = true
+
   method peso() {
 	return if(self.tieneMisil()) 300 else 200
   }
@@ -141,6 +152,7 @@ object residuos {
 
 object contenedorPortuario {
   const cosas = []
+
   method peso() {
 	return 100 + cosas.sum({cosa => cosa.peso()})
   }

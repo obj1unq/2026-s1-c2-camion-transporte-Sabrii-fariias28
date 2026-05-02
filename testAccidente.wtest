@@ -1,0 +1,50 @@
+import camion.*
+import cosas.*
+
+describe "El camión sufre un accidente" {
+  test "Caso 1: Efectos de las cosas" {
+    contenedorPortuario.cargar(knightRider)
+    bumblebee.modo("auto")
+    contenedorPortuario.cargar(bumblebee)
+    residuos.cambiarPeso(30)
+    embalaje.envolver(residuos)
+    arenaGranel.cambiarPeso(50)
+    paqueteLadrillos.cantidadLadrillos(100)
+    bateria.cambiarEstado(true)
+
+    camion.cargar(contenedorPortuario)
+    camion.cargar(embalaje)
+    camion.cargar(arenaGranel)
+    camion.cargar(paqueteLadrillos)
+    camion.cargar(bateria)
+
+    camion.accidente()
+
+    assert.equals(#{contenedorPortuario, embalaje,arenaGranel,paqueteLadrillos,bateria}, camion.cosasCargadas())
+    assert.equals("robot", bumblebee.modo())
+    assert.equals(30, residuos.peso())
+    assert.equals(70, arenaGranel.peso())
+    assert.equals(88, paqueteLadrillos.cantidadLadrillos())
+    assert.notThat(bateria.tieneMisil())
+  }
+
+  test "Caso 2: Efectos de las cosas cargadas" {
+    bumblebee.modo("robot")
+    residuos.cambiarPeso(30)
+    paqueteLadrillos.cantidadLadrillos(10)
+    bateria.cambiarEstado(false)
+
+    camion.cargar(bumblebee)
+    camion.cargar(residuos)
+    camion.cargar(paqueteLadrillos)
+    camion.cargar(bateria)
+    camion.accidente()
+
+    assert.equals(#{bumblebee,residuos,paqueteLadrillos,bateria}, camion.cosasCargadas())
+    assert.equals("auto", bumblebee.modo())
+    assert.equals(45, residuos.peso())
+    assert.equals(0, paqueteLadrillos.cantidadLadrillos())
+    assert.notThat(bateria.tieneMisil())
+  }
+}
+
